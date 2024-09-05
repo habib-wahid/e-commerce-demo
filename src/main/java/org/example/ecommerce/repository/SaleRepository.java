@@ -2,11 +2,13 @@ package org.example.ecommerce.repository;
 
 import org.example.ecommerce.dto.MaxSaleDateDto;
 import org.example.ecommerce.dto.SaleAmountDto;
+import org.example.ecommerce.dto.TopSellItemsDto;
 import org.example.ecommerce.entity.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
+import java.util.List;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
@@ -17,4 +19,9 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "    where DATE(sale_date) between :startDate and :endDate \n" +
             "    group by DATE(sale_date) order by price desc limit 1", nativeQuery = true)
     MaxSaleDateDto getMaxSaleDateBetween(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
+
+    @Query(value = "select product.id as id, product.product_name as productName, product.product_description as productDescription, product.product_price as productPrice, " +
+            "sum(sale.total_price) as totalSellAmount from sale inner join product \n" +
+            "on sale.product_id = product.id group by sale.product_id order by totalSellAmount desc limit 5", nativeQuery = true)
+    List<TopSellItemsDto> getTopSellItemsBasedOnSaleAmount();
 }
