@@ -37,4 +37,9 @@ public class SaleController {
     public ResponseEntity<List<TopSellItemsDto>> getTopSellItemsOnAmount() {
         return new ResponseEntity<>(saleService.getTopSellItemsOnAmount(), HttpStatus.OK);
     }
+
+    @GetMapping("/top-items-on-sale")
+    public ResponseEntity<List<TopSellItemsDto>> getLastMonthTopSellItems() {
+        return new ResponseEntity<>(saleService.getTopSellingItemsInLastMonth(), HttpStatus.OK);
+    }
 }

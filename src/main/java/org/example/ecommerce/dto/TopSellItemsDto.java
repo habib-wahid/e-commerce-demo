@@ -6,4 +6,5 @@ public interface TopSellItemsDto {
     String getProductDescription();
     Double getProductPrice();
     Double getTotalSellAmount();
+    Integer getTotalSellQuantity();
 }
