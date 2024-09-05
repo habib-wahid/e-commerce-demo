@@ -29,8 +29,8 @@ public class Sale {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "total_price")
+    private Double totalPrice;
 
     @Column(name = "sale_date")
     private LocalDateTime saleDate;
